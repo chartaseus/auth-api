@@ -6,10 +6,11 @@ const DomainErrorTranslator = {
 
     if (!(domain in this._glossary)) return error;
 
-    return new InvariantError(
-      this._glossary[domain].message
-      + ' karena '
-      + this._glossary[domain].description[key]);
+    const message = this._glossary[domain].message
+      + (this._glossary[domain].message ? ' karena ' : '')
+      + this._glossary[domain].description[key];
+
+    return new InvariantError(message);
   },
 };
 
@@ -51,6 +52,27 @@ DomainErrorTranslator._glossary = {
       USERNAME_LIMIT_CHAR: 'karakter username melebihi batas limit',
       USERNAME_CONTAIN_FORBIDDEN_CHARACTER:
         'username mengandung karakter terlarang',
+    },
+  },
+  USER_LOGIN: {
+    message: '',
+    description: {
+      NOT_CONTAIN_NEEDED_PROPERTY: 'harus mengirimkan username dan password',
+      NOT_MEET_DATA_TYPE_SPECIFICATION: 'username dan password harus string',
+    },
+  },
+  REFRESH_AUTHENTICATION_USE_CASE: {
+    message: '',
+    description: {
+      NOT_CONTAIN_REFRESH_TOKEN: 'harus mengirimkan token refresh',
+      PAYLOAD_NOT_MEET_DATA_TYPE_SPECIFICATION: 'refresh token harus string',
+    },
+  },
+  DELETE_AUTHENTICATION_USE_CASE: {
+    message: '',
+    description: {
+      NOT_CONTAIN_REFRESH_TOKEN: 'harus mengirimkan token refresh',
+      PAYLOAD_NOT_MEET_DATA_TYPE_SPECIFICATION: 'refresh token harus string',
     },
   },
 };
