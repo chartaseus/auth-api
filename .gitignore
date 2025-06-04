@@ -3,3 +3,4 @@
 node_modules
 coverage
 forum-webserver.pem
+package-lock.json
