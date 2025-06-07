@@ -1,6 +1,6 @@
 .env
-.test.env
 node_modules
 coverage
 forum-webserver.pem
 package-lock.json
+config/database/test.json
