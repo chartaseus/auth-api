@@ -45,7 +45,7 @@ jobs:
         CI: true
         HOST: localhost
         PORT: 3000
-        PGHOST: ${{ secrets.PGHOST }}
+        PGHOST: localhost
         PGPORT: 5432
         PGUSER: ${{ secrets.PGUSER }}
         PGPASSWORD: ${{ secrets.PGPASSWORD }}
