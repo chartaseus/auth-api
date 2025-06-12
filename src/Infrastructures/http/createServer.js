@@ -1,4 +1,7 @@
 const Hapi = require('@hapi/hapi');
+const Inert = require('@hapi/inert');
+const Vision = require('@hapi/vision');
+const HapiSwagger = require('hapi-swagger');
 
 const DomainErrorTranslator = require('../../Commons/exceptions/DomainErrorTranslator');
 const ClientError = require('../../Commons/exceptions/ClientError');
@@ -11,6 +14,22 @@ const createServer = async (container) => {
     host: process.env.HOST,
     port: process.env.PORT,
   });
+
+  const swaggerOptions = {
+    info: {
+      title: 'Auth API Documentation',
+      version: '1.0.0',
+    },
+  };
+
+  await server.register([
+    Inert,
+    Vision,
+    {
+      plugin: HapiSwagger,
+      options: swaggerOptions,
+    },
+  ]);
 
   await server.register([
     {
