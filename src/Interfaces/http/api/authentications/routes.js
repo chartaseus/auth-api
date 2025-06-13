@@ -16,13 +16,15 @@ const routes = (handler) => ([
         }).label('Post-authentications-payload'),
       },
       response: {
-        schema: Joi.object({
-          status: 'success',
-          data: {
-            accessToken: Joi.string(),
-            refreshToken: Joi.string(),
-          },
-        }).label('Post-authentications-response'),
+        status: {
+          201: Joi.object({
+            status: 'success',
+            data: {
+              accessToken: Joi.string(),
+              refreshToken: Joi.string(),
+            },
+          }).label('Post-authentications-response'),
+        },
       },
     },
   },
