@@ -18,9 +18,8 @@ jobs:
       postgres:
         image: postgres
         env:
-         POSTGRES_USER: ${{ secrets.PGUSER }}
-         POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
-         POSTGRES_DB: ${{ secrets.PGDATABASE_TEST }}
+          POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
+          POSTGRES_DB: ${{ secrets.PGDATABASE_TEST }}
 
         options: >-
           --health-cmd pg_isready
@@ -31,14 +30,14 @@ jobs:
           - 5432:5432
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
     - name: npm install migrate and test
       run: |
-        npm install
+        npm ci
         npm run migrate up
         npm run test
       env:
@@ -47,7 +46,7 @@ jobs:
         PORT: 3000
         PGHOST: localhost
         PGPORT: 5432
-        PGUSER: ${{ secrets.PGUSER }}
+        PGUSER: postgres
         PGPASSWORD: ${{ secrets.PGPASSWORD }}
         PGDATABASE: ${{ secrets.PGDATABASE_TEST }}
         ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
